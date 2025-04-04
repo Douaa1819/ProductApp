@@ -40,7 +40,7 @@ npx expo start
 ```
 Make sure to add your Firebase config in the right place (firebase.ts or a .env file if you're using one).
 
-📸 Screenshots (optional)
+📸 Screenshots 
 
 Coming soon!
 
