@@ -40,10 +40,14 @@ npx expo start
 ```
 Make sure to add your Firebase config in the right place (firebase/config.ts).
 
-📸 Screenshots 
+## 📸 Screenshots 
 ![image](https://github.com/user-attachments/assets/e25c59c7-5869-47c5-85b9-4c9d1e95fc96)
-![image](https://github.com/user-attachments/assets/9583c4cf-d6ee-4acc-82c5-e3db43c70124)
+
+
 ![image](https://github.com/user-attachments/assets/7dcc71bc-23a3-47d6-9c67-af3a94a6068d)
+
+![image](https://github.com/user-attachments/assets/9583c4cf-d6ee-4acc-82c5-e3db43c70124)
+
 
 
 
