@@ -1,13 +1,17 @@
-import React from 'react';
-import { Stack } from 'expo-router';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { Stack } from "expo-router"
+import { PaperProvider } from "react-native-paper"
+import { theme } from "../constants/theme"
 
 export default function Layout() {
   return (
-    <PaperProvider>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+    <PaperProvider theme={theme}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          animation: "slide_from_right",
+        }}
+      />
     </PaperProvider>
-  );
+  )
 }
+
