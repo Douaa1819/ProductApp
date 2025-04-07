@@ -1,20 +1,16 @@
-// app/(tabs)/index.tsx
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
-import { Appbar, Title, Paragraph, Menu, Chip, FAB } from 'react-native-paper';
-import { Link, useRouter } from 'expo-router';
-import { getProducts, getProductsByCategory } from '../../services/product-service';
-import { Product } from '../../types/product';
-import ProductItem from '../../components/ProductItem';
+import { Appbar, Button, Menu, Divider, Chip, FAB, Searchbar } from 'react-native-paper';
+import { getProducts, getProductsByCategory } from '../services/productService';
+import ProductItem from '../components/ProductItem';
 
-export default function ProductListScreen() {
-  const router = useRouter();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+const ProductListScreen = ({ navigation }) => {
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [filterMenuVisible, setFilterMenuVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   
   const categories = ['Électronique', 'Vêtements', 'Livres', 'Maison', 'Tous'];
 
@@ -36,7 +32,7 @@ export default function ProductListScreen() {
     }
   };
 
-  const handleCategoryFilter = async (category: string) => {
+  const handleCategoryFilter = async (category) => {
     setFilterMenuVisible(false);
     
     try {
@@ -57,6 +53,13 @@ export default function ProductListScreen() {
       setLoading(false);
     }
   };
+
+  const renderItem = ({ item }) => (
+    <ProductItem 
+      product={item} 
+      onPress={() => navigation.navigate('ProductDetail', { productId: item.id })}
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -101,29 +104,20 @@ export default function ProductListScreen() {
       ) : (
         <FlatList
           data={filteredProducts}
-          renderItem={({ item }) => (
-            <ProductItem 
-            product={item} 
-            onPress={() => {
-              router.push(`/(tabs)/product/${item.id}` as any);
-            }}
-          />
-          )}
-          keyExtractor={(item) => item.id || ''}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
           contentContainerStyle={styles.list}
         />
       )}
 
       <FAB
-  style={styles.fab}
-  icon="plus"
-  onPress={() => {
-    router.push("/product/new" as any);
-  }}
-/>
+        style={styles.fab}
+        icon="plus"
+        onPress={() => navigation.navigate('ProductForm')}
+      />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -154,3 +148,5 @@ const styles = StyleSheet.create({
     margin: 8,
   },
 });
+
+export default ProductListScreen;
